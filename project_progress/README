@@ -1,0 +1,103 @@
+README for project
+
+5 December 2019
+
+How am I going to tackle this project?
+
+1. Extract words, get topics
+2. Clean up words
+3. Work with models:
+	3a. LDA: 
+		Create LDA model
+		Get topics from LDA model
+		Examples of LDA on tweets: 
+			https://www.kaggle.com/errearanhas/topic-modelling-lda-on-elon-tweets
+			https://arxiv.org/pdf/1608.02519.pdf
+	3b. KMeans:
+		Get distance metric (using tf-idf) (check this link: https://medium.com/@MSalnikov/text-clustering-with-k-means-and-tf-idf-f099bcf95183)
+	3c. Spectral Clustering:
+		http://delivery.acm.org/10.1145/2990000/2983708/p357-xu.pdf?ip=130.132.173.131&id=2983708&acc=ACTIVE%20SERVICE&key=AA86BE8B6928DDC7%2E25D92BB326E6095D%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&__acm__=1575577598_f969c2c8964d2bdcd68393652b01664f
+	3d. Louvain: check out this link https://arxiv.org/abs/1909.11706
+
+Essentially, we can represent distances between words by using tf-idf vector representations, then cluster using k-means, spectral clustering, and louvain
+
+So, I can work on getting the corpus of messages first. I could do this like a bag of words and just see what topics are being represented?
+
+I could use the corpus of text that I already have (for the Yale SOM experiment?), and see what it finds?
+
+
+Today's steps:
+	1. Get the data. 
+		Use the data from the Twitter experiment
+		Clean the data
+	2. Read papers for LDA, KMeans, Louvain
+	3. Read this paper, which compares LDA to KMeans, Spectral Clustering, Louvain: https://hal.archives-ouvertes.fr/hal-01532894v5/document
+
+10:01pm, 5 December 2019
+
+I'm working on cleaning the data right now (taking a bit of time, understandably, with 600,000 tweets). What if I create a separate "document" for each user, which is the corpus of all of their tweets? It is based off this article: https://medium.com/@alexisperrier/topic-modeling-of-twitter-timelines-in-python-bb91fa90d98d
+
+Good example of doing LDA on corpus of tweets: https://ourcodingclub.github.io/2018/12/10/topic-modelling-python.html
+
+	Good note: need to turn text into matrix first
+
+Twitter clustering using k-means: https://github.com/achyutb6/tweets-k-means
+
+Note: can use LDAvis library to explore LDA results, calculate semantic distance between topics using Jensen Shannon Divergence: https://medium.com/@alexisperrier/topic-modeling-of-twitter-timelines-in-python-bb91fa90d98d
+
+6:59pm, 7 December 2019
+
+Good article on figuring out how to vectorize tweets using gensim (which then allows you to use it for k means and such): https://www.procogia.com/blog-posts/2018/11/26/tweet-clustering-with-word2vec-and-k-means
+
+I need to catch up on progress today, so I'll just do the tweet cleaning in a Jupyter notebook
+
+Today's goals:
+	- Finish cleaning up tweets
+	- Implement distance metric using gensim, in order to prepare for kMeans, Louvain, etc.
+	- Write code for models:
+		- LDA, bag of words
+		- KMeans, Spectral Clustering, Louvain
+
+3:04pm, 8 December 2019
+
+Finished cleaning tweets. Can start modeling
+
+3:51pm, 8 December 2019
+
+Great resource for LDA, followed it to get my results: https://www.machinelearningplus.com/nlp/topic-modeling-gensim-python/
+
+Goals for today
+	- Finish training LDA
+	- Start fitting neural network required for KMeans, Spectral Clustering, Louvain
+
+Great resource for why LDA works on short text: https://www.researchgate.net/post/What_is_a_good_way_to_perform_topic_modeling_on_short_text
+
+One approach for using K-Means on Twitter data: https://medium.com/swlh/anomaly-detection-in-tweets-clustering-proximity-based-approach-58f8c22eed1e
+
+Another article for using K-Means on Twitter (or, in general, text) data: https://ai.intelligentonlinetools.com/ml/tag/k-means-clustering-example/
+
+Here's a quick and dirty one that I'll use: https://pythonprogramminglanguage.com/kmeans-text-clustering/
+
+Another resource for k-means with text (also has info on evaluating results): https://sanjayasubedi.com.np/nlp/nlp-with-python-document-clustering/
+
+11:06am, 9 December 2019
+
+I got the results from the LDA, seems like the "terms" that it clusters on are entire tweets... seems like I really do need to break up the tweets into separate words?
+
+10:50am, 17 December 2019
+
+For k-means, I can vary the # of k's and see what I get?
+
+Can change the following params for k-means:
+	- # of k's
+	- max-iter
+	- n_init
+
+(if I decide to use Louvain?) Implementation of Louvain with text data: https://arxiv.org/pdf/1909.11706.pdf (need to find open-source code that accompanies this?)
+
+Also, for k-means, should I make a plot of the clusters?
+
+Resource on interpreting LDA graph results: http://bl.ocks.org/AlessandraSozzi/raw/ce1ace56e4aed6f2d614ae2243aab5a5/
+
+
+
